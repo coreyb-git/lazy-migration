@@ -2,7 +2,7 @@
 
 Use the new vim.pack feature, without having to radically convert from existing lazy.nvim plugin specs.
 
-This is certainly ugly, and probably horribly broken, and it would have taken less time writing the necessary vim.pack.add() instruction with all of the plugins I use.  But why do it the easier, better way, when I could just leave my existing files as they are and write a disgusting loader that reads the lazy spec files to then, 1-by-1, add them to vim using vim.pack.add?
+This is certainly ugly, and probably horribly broken, and it would have taken less time writing the necessary vim.pack.add() instruction with all the plugins I use.  But why do it the easier, better way, when I could just leave my existing files as they are and write a disgusting loader that reads the lazy spec files to then, 1-by-1, add them to vim using vim.pack.add?
 
 I have a lot of light-weight plugins for various things, and I just didn't want to have to deal with translating the files, so it seemed easier at the time to just read the existing spec files --- I was wrong.
 
@@ -72,9 +72,9 @@ setup_keys()
 
 ## Names Matter
 
-Some plulgin authors enjoy naming their repo something different to how the plugin is called internally with the require().  If you do this, I hate you!
+Some plugin authors enjoy naming their repo something different to how the plugin is called internally with the require().  If you do this, I hate you!
 
-Because I this loader doesn't touch the files I have no convenient way of tracking what the internal directory structure is of plugins, without adding a tonne of bloat-code that I just don't want to do.
+Because this loader doesn't touch the files I have no convenient way of tracking what the internal directory structure is of plugins, without adding a tonne of bloat-code that I just don't want to do.
 
 Solution:  I abuse the "name" property of the lazy spec for plugins that have an identity crisis and can't pick a single damn name for themselves..
 
