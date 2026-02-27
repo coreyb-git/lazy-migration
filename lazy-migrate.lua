@@ -6,12 +6,6 @@ local dev_path
 
 function M.set_dev_path(path)
 	dev_path = path
-	--vim.opt.rtp:prepend(path)
-end
-
-function M.local_repo(local_repo)
-	--vim.pack.add({ local_repo })
-	require(local_repo)
 end
 
 function M.gh(GitHubRepo)
@@ -20,9 +14,9 @@ function M.gh(GitHubRepo)
 end
 
 local function map(key, cmd, desc)
-    vim.schedule(function()
-        vim.keymap.set("n", key, cmd, { desc = desc, noremap = true })
-    end)
+	vim.schedule(function()
+		vim.keymap.set("n", key, cmd, { desc = desc, noremap = true })
+	end)
 end
 
 local function explode(inputstr, sep)
@@ -103,7 +97,7 @@ function M.load_lazy_spec(spec)
 				M.load_lazy_spec(d)
 			end
 		else
-			vim.print("Bad dependencies for " .. repo)
+			vim.print("Bad dependencies for " .. spec[1])
 		end
 	end
 
@@ -117,20 +111,12 @@ function M.load_lazy_spec(spec)
 	end
 
 	-- Add package
-	local addfunc
 	if spec.dev then
 		vim.opt.rtp:prepend(dev_path .. plugin_repo_name)
-		addfunc = function()
-			M.local_repo(potential_name)
-		end
+		-- plugin will be loaded after init.lua has finished bootstrapping NeoVim
 	else
-		addfunc = function()
-			M.gh(spec[1])
-		end
+		M.gh(spec[1])
 	end
-
-	-- vim pack add, local or remote repo
-	addfunc()
 
 	local setup_func = function()
 		-- opts
@@ -163,7 +149,7 @@ function M.load_lazy_spec(spec)
 		is_lazy = true
 		local event_type = type(spec.event)
 		if event_type == "function" then
-			if spec_event() then
+			if spec.event() then
 				setup_func()
 			end
 		else
@@ -175,7 +161,7 @@ function M.load_lazy_spec(spec)
 		is_lazy = true
 		local cmd_type = type(spec.cmd)
 		if cmd_type == "function" then
-			if spec_cmd() then
+			if spec.cmd() then
 				setup_func()
 			end
 		else
