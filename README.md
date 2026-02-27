@@ -72,7 +72,7 @@ setup_keys()
 
 ## Names Matter
 
-Some plugin authors enjoy naming their repo something different to how the plugin is called internally with the require().  If you do this, I hate you!
+Some plugin authors enjoy naming their repo something different to how the plugin is called internally with the require() function.  If you do this, I hate you!
 
 Because this loader doesn't touch the files I have no convenient way of tracking what the internal directory structure is of plugins, without adding a tonne of bloat-code that I just don't want to do.
 
